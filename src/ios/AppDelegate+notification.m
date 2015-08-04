@@ -82,12 +82,25 @@ static char launchNotificationKey;
     }
 }
 
+// Called in place of didReceiveRemoteNotification:userInfo for iOS 8
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
             fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))handler {
 
     NSLog(@"DEBUG didReceiveNotification:fetchCompletionHandler");
-    handler(UIBackgroundFetchResultNoData);
 
+    UIApplicationState appState = application.applicationState;
+
+    if (appState == UIApplicationStateActive) {
+        PushPlugin *pushHandler = [self getCommandInstance:@"PushPlugin"];
+        pushHandler.notificationMessage = userInfo;
+        pushHandler.isInline = YES;
+        [pushHandler notificationReceived];
+    } else {
+        //save it for later
+        self.launchNotification = userInfo;
+    }
+
+    handler(UIBackgroundFetchResultNoData);
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
