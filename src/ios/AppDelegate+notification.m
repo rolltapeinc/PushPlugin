@@ -86,6 +86,7 @@ static char launchNotificationKey;
             fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))handler {
 
     NSLog(@"DEBUG didReceiveNotification:fetchCompletionHandler");
+    handler(UIBackgroundFetchResultNoData);
 
 }
 
