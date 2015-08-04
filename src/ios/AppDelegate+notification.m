@@ -82,6 +82,7 @@ static char launchNotificationKey;
     }
 }
 
+/***
 // Called in place of didReceiveRemoteNotification:userInfo for iOS 8
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
             fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))handler {
@@ -102,6 +103,7 @@ static char launchNotificationKey;
 
     handler(UIBackgroundFetchResultNoData);
 }
+***/
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
 
